@@ -26,7 +26,33 @@ public class ManagerService {
     }
 
     public Account createNewAccount(int customerId) {
-    return null;
+        Account account = new Account();
+
+        System.out.println(customerId);
+
+        Customer customer = cust.findById(customerId).get();
+
+        System.out.println(customer.getName());
+
+        account.setCurrentBalance(0);
+        account.setCustomer(customer);
+
+        account.setTransactions(new ArrayList<Transaction>());
+
+        System.out.println(account.getCurrentBalance());
+
+        try {
+
+            account = repo.save(account);
+
+        }catch(Exception e) {
+
+            throw e;
+
+        }
+
+        return account;
+
     }
 
     public ResponseEntity<Object> verifyPanCard(String panCardNumber) {
