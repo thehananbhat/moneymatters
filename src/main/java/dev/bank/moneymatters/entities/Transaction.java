@@ -36,13 +36,6 @@ public class Transaction {
     @Column(name = "local_date_time")
     private LocalDateTime localDateTime;
 
-
-    public Transaction(Long transactionId, Integer transactionAmt, LocalDateTime localDateTime) {
-        this.transactionId = transactionId;
-        this.transactionAmt = transactionAmt;
-        this.localDateTime = localDateTime;
-    }
-
     public Transaction(){ }
 
     public Long getTransactionId() {
@@ -75,6 +68,14 @@ public class Transaction {
 
     public LocalDateTime getLocalDateTime() {
         return localDateTime;
+    }
+
+    public Transaction(Long transactionId, double transactionAmt, String transactionType, String transactionReferenceId, LocalDateTime localDateTime) {
+        this.transactionId = transactionId;
+        this.transactionAmt = transactionAmt;
+        this.transactionType = transactionType;
+        this.transactionReferenceId = transactionReferenceId;
+        this.localDateTime = localDateTime;
     }
 
     @Override

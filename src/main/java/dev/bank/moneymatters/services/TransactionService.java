@@ -17,14 +17,13 @@ import java.time.format.DateTimeFormatter;
 @Service
 public class TransactionService {
 
-    @Autowired
     TransactionConstants constants;
 
     @Autowired
     AccountRepo accountRepo;
 
-    @Autowired
-    TransactionRepository transactionRepository;
+//    @Autowired
+//    TransactionRepository transactionRepository;
 
     public double getCurrentBalance(long accountNumber){
         // get the account number
@@ -45,7 +44,7 @@ public class TransactionService {
         transaction.setLocalDateTime(LocalDateTime.now());
         transaction.setTransactionReferenceId("TID-"+transaction.getTransactionId()+"-CREDIT-"+"CustomerID");
 
-        transactionRepository.save(transaction);
+//        transactionRepository.save(transaction);
         //Add this transaction to the customer's List of Transaction
         account.getTransactions().add(transaction);
 
@@ -69,7 +68,7 @@ public class TransactionService {
         transaction.setTransactionType(constants.DEBIT_TRANSACTION);
         transaction.setTransactionReferenceId("TID-"+transaction.getTransactionId()+"-DEBIT-"+"CustomerID");
 
-        transactionRepository.save(transaction);
+//        transactionRepository.save(transaction);
         //Add this transaction to the customer's List of Transaction
         account.getTransactions().add(transaction);
 
