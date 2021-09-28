@@ -42,7 +42,8 @@ public class TransactionService {
         transaction.setTransactionAmt(amount);
         transaction.setTransactionType(constants.CREDIT_TRANSACTION);
         transaction.setLocalDateTime(LocalDateTime.now());
-        transaction.setTransactionReferenceId("TID-"+transaction.getTransactionId()+"-CREDIT-"+"CustomerID");
+        transaction.setTransactionReferenceId("TID-"+transaction.getTransactionId()+"-CREDIT-"+account.getAccountNumber());
+        sendEmail(account, transaction);
 
 //        transactionRepository.save(transaction);
         //Add this transaction to the customer's List of Transaction
@@ -66,7 +67,9 @@ public class TransactionService {
 
         transaction.setTransactionAmt(amount);
         transaction.setTransactionType(constants.DEBIT_TRANSACTION);
-        transaction.setTransactionReferenceId("TID-"+transaction.getTransactionId()+"-DEBIT-"+"CustomerID");
+        transaction.setLocalDateTime(LocalDateTime.now());
+        transaction.setTransactionReferenceId("TID-"+transaction.getTransactionId()+"-DEBIT-"+account.getAccountNumber());
+        sendEmail(account, transaction);
 
 //        transactionRepository.save(transaction);
         //Add this transaction to the customer's List of Transaction
