@@ -33,13 +33,12 @@ public class ManagerController {
 
 //    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("manager/create-customer")
-    public ResponseEntity<Object> createCustomer(@RequestParam(value="aadhar_number") Long aadharNumber,
-                                                 @RequestParam(value="dob") String dob,
-                                                 @RequestParam(value="email") String email,
-                                                 @RequestParam(value="name") String name,
-                                                 @RequestParam(value="pan_card") String panCard,
-                                                 @RequestParam(value="postal_address") String postalAddress
-                                                 ){
+    public ResponseEntity<Object> createCustomer(@RequestParam String aadharNumber,
+                                                 @RequestParam  String dob,
+                                                 @RequestParam  String email,
+                                                 @RequestParam  String name,
+                                                 @RequestParam  String panCard,
+                                                 @RequestParam  String postalAddress){
 
         Customer newCust = new Customer();
         HashMap<String,String> resultSet = new HashMap<String,String>();
@@ -48,7 +47,7 @@ public class ManagerController {
             resultSet.put("message", "Invalid DOB! Format should me YYYY-MM-DD");
             return new ResponseEntity<>(resultSet, HttpStatus.BAD_REQUEST);
         }
-        newCust.setDobFromString(dob);
+        newCust.setDob(dob);
 
         if(!Pattern.matches("[A-Z]{5}[0-9]{4}[A-Z]{1}", panCard)) {
             resultSet.put("message", "Invalid PAN number");
@@ -56,7 +55,7 @@ public class ManagerController {
         }
         newCust.setPanCard(panCard);
 
-        if(!Pattern.matches("[0-9]{12}",Long.toString(aadharNumber))) {
+        if(!Pattern.matches("[0-9]{12}",aadharNumber)) {
             resultSet.put("message", "Invalid Aadhar number");
             return new ResponseEntity<>(resultSet, HttpStatus.BAD_REQUEST);
         }
@@ -85,10 +84,12 @@ public class ManagerController {
             return new ResponseEntity<>(resultSet, HttpStatus.INTERNAL_SERVER_ERROR);
         }
         resultSet.put("customer_id", Long.toString(newCust.getCustomerId()));
+
         String emailUserName = newUser.getCustomerId();
         String emailPassword = newUser.getPassword();
         String customerEmail = newCust.getEmail();
         accCreationEmailService.sendEmail(emailUserName,emailPassword,customerEmail);
+
         return new ResponseEntity<>(resultSet, HttpStatus.OK);
     }
 

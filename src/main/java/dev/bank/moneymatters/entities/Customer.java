@@ -12,7 +12,7 @@ public class Customer {
     @Column
     private String panCard;
     @Column
-    private	Long aadharNumber;
+    private	String aadharNumber;
     @Column
     private String name;
     @Column
@@ -20,7 +20,11 @@ public class Customer {
     @Column
     private String email;
     @Column
-    private LocalDate dob;
+    private String dob;
+
+    public String getDob() {
+        return dob;
+    }
 
     @OneToOne(cascade=CascadeType.ALL)
     private User user;
@@ -35,8 +39,8 @@ public class Customer {
         // TODO Auto-generated constructor stub
     }
 
-    public Customer(int customerId, String panCard, long aadharNumber, String name, String postalAddress, String email,
-                    LocalDate dob, User user) {
+    public Customer(int customerId, String panCard, String aadharNumber, String name, String postalAddress, String email,
+                    String dob, User user) {
         super();
         this.customerId = customerId;
         this.panCard = panCard;
@@ -65,8 +69,8 @@ public class Customer {
 //        this.aadharImg = aadharImg;
 //    }
 
-    public void setDobFromString(String dob) {
-        this.dob = LocalDate.parse(dob);
+    public void setDob(String dob) {
+        this.dob = dob;
     }
 
     public long getCustomerId() {
@@ -81,10 +85,10 @@ public class Customer {
     public void setPanCard(String panCard) {
         this.panCard = panCard;
     }
-    public Long getAadharNumber() {
+    public String getAadharNumber() {
         return aadharNumber;
     }
-    public void setAadharNumber(Long aadharNumber) {
+    public void setAadharNumber(String aadharNumber) {
         this.aadharNumber = aadharNumber;
     }
     public String getName() {
